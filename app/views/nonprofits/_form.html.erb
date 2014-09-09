@@ -1,0 +1,13 @@
+<% if @nonprofit.errors.any? %>
+  <ul>
+  <% @nonprofit.errors.full_messages.each do |message| %>
+    <li> <%= message %></li>
+  <% end %>
+  </ul>
+<% end %>
+
+<%= form_for @nonprofit do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.submit %>
+<% end %>
