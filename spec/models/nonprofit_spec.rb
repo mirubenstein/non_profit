@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe User do
+describe Nonprofit do
   it { should have_many :donations }
-  it { should have_many :nonprofits }
+  it { should have_many :users }
 end

@@ -1,5 +1,6 @@
 class Donation < ActiveRecord::Base
   belongs_to :nonprofit
+  belongs_to :user
 
   def charge_card(stripe_token)
     # Set your secret key: remember to change this to your live secret key in production
