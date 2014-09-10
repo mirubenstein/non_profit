@@ -16,7 +16,7 @@ class Donation < ActiveRecord::Base
         :card => stripe_token,
         :description => "payinguser@example.com"
       )
-      self.update(amount: charge.amount, email: charge.description)
+      self.update(amount: charge.amount)
     rescue Stripe::CardError => e
       # The card has been declined
     end
