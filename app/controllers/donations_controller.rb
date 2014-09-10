@@ -3,10 +3,11 @@ class DonationsController < ApplicationController
   before_filter :authenticate_user!
 
   def create
-    @user = current_user
-    @donation = Donation.new(amount: donation_params[:amount], nonprofit_id: params[:nonprofit_id], token: donation_params[:stripeToken], user_id: @user.id)
-    @donation.save
     @nonprofit = Nonprofit.find(params[:nonprofit_id])
+    @user = current_user
+    @donation = @user.donations.new(donation_params)
+    @donation.nonprofit_id = @nonprofit.id
+    @donation.save
     redirect_to nonprofit_donation_path(@nonprofit, @donation)
   end
 
@@ -16,6 +17,6 @@ class DonationsController < ApplicationController
 
 private
   def donation_params
-    params.permit(:stripeToken, :nonprofit_id)
+    params.require(:donation).permit(:token, :amount)
   end
 end

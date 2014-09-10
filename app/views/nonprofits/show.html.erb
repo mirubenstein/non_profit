@@ -3,8 +3,32 @@
 <%= render @nonprofit %>
 
 <h3>Make a donation</h3>
-<form action="/nonprofits/<%= @nonprofit.id %>/donations" method="POST" id="payment-form">
+<%= form_for [@nonprofit, @donation] do |f| %>
   <span class="payment-errors"></span>
+  <span id="stripe_error"><span>
+  <%= f.label :amount %>
+  <%= f.text_field :amount %>
+  <%= label_tag :card_number, "Credit Card Number" %>
+  <%= text_field_tag :card_number, nil, name: nil %>
+  <%= label_tag :card_code, "Security Code on Card (CVV)" %>
+  <%= text_field_tag :card_code, nil, name: nil %>
+  <%= label_tag :card_month, "Card Expiration" %>
+  <%= select_month nil, {add_month_numbers_true: true}, {name: nil, id: "card_month"}%>
+  <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year"}%>
+  <%= f.hidden_field :token %>
+  <%= f.submit "Donate" %>
+<% end %>
+
+
+<!-- <form action="/nonprofits/<%= @nonprofit.id %>/donations" method="POST" id="payment-form">
+  <span class="payment-errors"></span>
+
+  <div class="form-row">
+    <label>
+      <span>Amount</span>
+      <input type="text" size="20" id="amount">
+    </label>
+  </div>
 
   <div class="form-row">
     <label>
@@ -31,3 +55,4 @@
 
   <button type="submit">Submit Payment</button>
 </form>
+ -->

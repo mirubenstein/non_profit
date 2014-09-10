@@ -1,15 +1,20 @@
 class Donation < ActiveRecord::Base
   belongs_to :nonprofit
   belongs_to :user
+  before_save :multiply_amount
   before_create :charge_card
 
 private
+
+  def multiply_amount
+    self.amount = self.amount * 100
+  end
+
   def charge_card
-    binding.pry
     begin
       Stripe.api_key = "sk_test_w3CCvv0csnbJams8XeOA9xKE"
       charge = Stripe::Charge.create(
-        :amount => 1000, # amount in cents, again
+        :amount => self.amount, # amount in cents, again
         :currency => "usd",
         :card => self.token,
         :description => self.user.email
