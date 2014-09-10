@@ -1,0 +1,21 @@
+<% if @subscription.errors.any? %>
+  <ul>
+  <% @subscription.errors.full_messages.each do |message| %>
+    <li> <%= message %></li>
+  <% end %>
+  </ul>
+<% end %>
+
+<%= form_for [@subscription.nonprofit, @subscription] do |f| %>
+  <%= f.label :short_name %>
+  <%= f.text_field :short_name %>
+  <%= f.label :amount %>
+  <%= f.text_field :amount %>
+  <%= f.label :interval %>
+  <%= f.text_field :interval, value: 'month' %>
+  <%= f.label :long_name %>
+  <%= f.text_field :long_name %>
+  <%= f.label :currency %>
+  <%= f.text_field :currency, value: 'usd' %>
+  <%= f.submit %>
+<% end %>

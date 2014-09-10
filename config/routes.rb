@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   devise_for :users
   resources :nonprofits do
     resources :donations
+    resources :subscriptions
   end
 end

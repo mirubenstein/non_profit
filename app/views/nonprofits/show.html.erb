@@ -19,6 +19,8 @@
   <%= f.submit "Donate" %>
 <% end %>
 
+<hr>
+<%= link_to "See all subscriptions", nonprofit_subscriptions_path(@nonprofit) %>
 
 <!-- <form action="/nonprofits/<%= @nonprofit.id %>/donations" method="POST" id="payment-form">
   <span class="payment-errors"></span>
