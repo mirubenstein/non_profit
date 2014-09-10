@@ -18,7 +18,7 @@ var stripeResponseHandler = function(status, response) {
 jQuery(function($) {
   $('#payment-form').submit(function(event) {
     var $form = $(this);
-
+    debugger;
     // Disable the submit button to prevent repeated clicks
     $form.find('button').prop('disabled', true);
 
