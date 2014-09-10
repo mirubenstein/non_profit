@@ -1,10 +1,11 @@
 class Donation < ActiveRecord::Base
   belongs_to :nonprofit
   belongs_to :user
-  before_save :charge_card
+  before_create :charge_card
 
 private
   def charge_card
+    binding.pry
     begin
       Stripe.api_key = "sk_test_w3CCvv0csnbJams8XeOA9xKE"
       charge = Stripe::Charge.create(
@@ -13,7 +14,6 @@ private
         :card => self.token,
         :description => self.user.email
       )
-      self.update(amount: charge.amount)
     rescue Stripe::CardError => e
       # The card has been declined
     end
