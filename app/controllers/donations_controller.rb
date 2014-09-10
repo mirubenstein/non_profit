@@ -3,8 +3,10 @@ class DonationsController < ApplicationController
   before_filter :authenticate_user!
 
   def create
-    @donation = current_user.donations.create(nonprofit_id: params[:nonprofit_id])
-    @donation.charge_card(token_params[:stripeToken])
+    @user = current_user
+    @donation = Donation.new(nonprofit_id: params[:nonprofit_id], token: token_params[:stripeToken])
+    @donation.user_id = @user.id
+    @donation.save
     @nonprofit = Nonprofit.find(params[:nonprofit_id])
     redirect_to nonprofit_donation_path(@nonprofit, @donation)
   end
